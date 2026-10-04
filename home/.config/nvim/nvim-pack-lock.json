@@ -1,7 +1,7 @@
 {
   "plugins": {
     "arborist.nvim": {
-      "rev": "fdeef56c2840c6772b9f68c5774ed87e9340ec7d",
+      "rev": "31445702c1a7aa1f3c51f3995c177dcca5561cb7",
       "src": "https://github.com/arborist-ts/arborist.nvim"
     },
     "conform.nvim": {
@@ -9,7 +9,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "mini.nvim": {
-      "rev": "ac5dffcc52b8378fbb15efeb0497a83e57a0b01c",
+      "rev": "ba4362b1728c60f4002e924ebddbb25e21d1b2cf",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-lspconfig": {
