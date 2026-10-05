@@ -36,7 +36,7 @@
     priority = 100;
   };
 
-  networking.hostName = "thicc430";
+  networking.hostName = "com1";
 
   networking.networkmanager.enable = true;
   # From https://wiki.nixos.org/wiki/Systemd/resolved#Configuration_Example:_Enforce_secure_DNS
