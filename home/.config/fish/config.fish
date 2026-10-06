@@ -30,7 +30,7 @@ if status is-interactive
   set -g fish_color_valid_path white
   set -g fish_color_option white
   set -g fish_color_comment brblack
-  set -g fish_color_selection --reverse
+  set -g fish_color_selection black --background=blue
   set -g fish_color_operator red
   set -g fish_color_escape green
   set -g fish_color_autosuggestion brblack
@@ -43,6 +43,14 @@ if status is-interactive
   set -g fish_color_cancel yellow
   set -g fish_color_search_match black --background=yellow
   set -g fish_color_history_current black --background=blue
+  set -g fish_pager_color_progress white
+  set -g fish_pager_color_prefix blue
+  set -g fish_pager_color_completion white
+  set -g fish_pager_color_description white
+  set -g fish_pager_color_selected_background --background=blue
+  set -g fish_pager_color_selected_prefix black
+  set -g fish_pager_color_selected_completion black
+  set -g fish_pager_color_selected_description black
 
   #
   # Greeter
