@@ -58,8 +58,8 @@ if status is-interactive
 
   function fish_greeting
     set_color yellow
-    echo "There was a time when Einstein couldn't count to ten"
-    echo "A year from now you may wish you had started today"
+    echo 'There was a time when Einstein couldn\'t count to ten'
+    echo 'A year from now you may wish you had started today'
     set_color normal
   end
 
@@ -68,14 +68,14 @@ if status is-interactive
   #
 
   function fish_prompt
-    set -l user_host (set_color -o green)"$USER@"(prompt_hostname)
-    set -l pwd_info  (set_color -o blue)(prompt_pwd)
-    set -l git_info  (set_color -o cyan)(fish_vcs_prompt)
-    set -l symbol    (set_color normal)'$ '
+    set -l login (set_color -o green)$USER'@'(prompt_hostname)
+    set -l pwd   (set_color -o blue)' '(prompt_pwd)
+    set -l git   (set_color -o cyan)(fish_git_prompt)
+    set -l end   (set_color normal)'$ '
 
     echo
-    echo "$user_host $pwd_info$git_info"
-    echo -n $symbol
+    echo -s $login $pwd $git
+    echo -n $end
   end
 
   #
