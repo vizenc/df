@@ -80,6 +80,7 @@
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "i965";
   };
+  programs.nix-ld.enable = true;
 
   #
   # Packages
@@ -148,6 +149,8 @@
     ripgrep # mini.pick deps
     fzf
     fd
+    tree
+    jq
     dua
     imagemagick
     yt-dlp
@@ -166,6 +169,12 @@
     typescript # web
     oxfmt # web
     oxlint # web
+    rustup # agents
+    go # agents
+    python3 # agents
+    uv # agents
+    tmux # agents
+    asciinema # agents
   ];
 
   fonts = {
