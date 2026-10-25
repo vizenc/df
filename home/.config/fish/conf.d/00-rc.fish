@@ -2,15 +2,14 @@
 # Env
 #
 
-fish_add_path -g "$HOME/.local/bin"
-fish_add_path -g "$HOME/.opencode/bin"
-
 set -gx SHELL (command -v fish)
 set -gx MANPAGER 'nvim +Man!'
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -gx FZF_DEFAULT_OPTS_FILE "$HOME/.config/fzf/rc"
 set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/rc"
+
+fish_add_path -g "$HOME/.local/bin"
 
 if status is-interactive
   # Commands to run in interactive sessions can go here
