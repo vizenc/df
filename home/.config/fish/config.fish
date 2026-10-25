@@ -5,6 +5,7 @@
 fish_add_path -g "$HOME/.local/bin"
 fish_add_path -g "$HOME/.opencode/bin"
 
+set -gx SHELL (command -v fish)
 set -gx MANPAGER 'nvim +Man!'
 set -gx EDITOR nvim
 set -gx VISUAL nvim
