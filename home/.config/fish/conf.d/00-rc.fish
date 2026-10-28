@@ -89,8 +89,6 @@ if status is-interactive
   # Alias
   #
 
-  alias rebuild='sudo nixos-rebuild switch'
-  alias update='sudo nixos-rebuild switch --upgrade'
   alias lazyvim='env NVIM_APPNAME=lazyvim nvim'
 
 end

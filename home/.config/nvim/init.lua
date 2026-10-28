@@ -85,21 +85,14 @@ vim.lsp.config('lua_ls', {
     },
   },
 })
-vim.lsp.config('nil_ls', {
-  settings = {
-    formatting = {
-      command = { 'nixfmt' },
-    },
-  },
-})
 -- Enable even if not in a project/workspace
 vim.lsp.config('oxlint', {
   root_markers = {},
   workspace_required = false,
 })
+vim.lsp.config('qmlls', { cmd = { 'qmlls6' } })
 vim.lsp.enable({
   'lua_ls',
-  'nil_ls',
   'emmet_language_server',
   'tsc',
   'oxlint',
