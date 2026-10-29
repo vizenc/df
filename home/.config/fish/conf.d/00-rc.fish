@@ -59,8 +59,8 @@ if status is-interactive
 
   function fish_greeting
     set_color yellow
-    echo 'There was a time when Einstein couldn\'t count to ten'
-    echo 'A year from now you may wish you had started today'
+    echo '> There was a time when Einstein couldn\'t count to ten'
+    echo '> A year from now you may wish you had started today'
     set_color normal
   end
 
@@ -89,6 +89,6 @@ if status is-interactive
   # Alias
   #
 
-  alias lazyvim='env NVIM_APPNAME=lazyvim nvim'
+  alias lvim='env NVIM_APPNAME=lazyvim nvim'
 
 end
