@@ -6,75 +6,68 @@ import QtQuick
 
 Singleton {
     id: root
+
     property string thermalZone: "thermal_zone1"
     property string battery: "BAT0"
     property string networkInterface: "wlp3s0"
     property int updateSec: 2
 
-    property int cpuUsage
-    property real lastIdle: 0
-    property real lastTotal: 0
+    property real cpuUsage
+    property int cpuTemperature
+    property real memUsed
+    property int powerCapacity
+    property real downloadMBps
+
     FileView {
         id: cpuFile
+        property real prevTotal
+        property real prevIdle
         path: "/proc/stat"
         onLoaded: {
-            // Parse into [0] user, [1] nice, [2] system, [3] idle, [4] iowait, [5] irq, [6] softirq
-            const p = this.text().split(/\s+/).slice(1, 8).map(Number);
-            // Like top and vmstat, disk activity isn't counted as CPU work
-            const idle = p[3] + (p[4] || 0);
-            const total = p.reduce((a, b) => a + b, 0);
-
-            const dIdle = idle - root.lastIdle;
-            const dTotal = total - root.lastTotal;
-            // CPU ratio (e.g., 0.35 for 35% usage)
-            root.cpuUsage = Math.round((1 - dIdle / dTotal) * 100);
-
-            root.lastIdle = idle;
-            root.lastTotal = total;
+            // Like BTOP, iowait is considered idle
+            const numbers = text().match(/\d+/g).slice(0, 7).map(Number);
+            const total = numbers.reduce((a, b) => a + b);
+            const idle = numbers[3] + numbers[4];
+            const dTotal = total - prevTotal;
+            const dIdle = idle - prevIdle;
+            root.cpuUsage = ((dTotal - dIdle) / dTotal) * 100;
+            prevTotal = total;
+            prevIdle = idle;
         }
     }
 
-    property int cpuTemperature
     FileView {
         id: temperatureFile
         path: `/sys/class/thermal/${root.thermalZone}/temp`
-        onLoaded: {
-            root.cpuTemperature = this.text() / 1000;
-        }
+        onLoaded: root.cpuTemperature = text() / 1000
     }
 
-    property real memUsed
     FileView {
         id: memFile
         path: "/proc/meminfo"
         onLoaded: {
-            const total = this.text().match(/MemTotal:\s+(\d+)/);
-            const avail = this.text().match(/MemAvailable:\s+(\d+)/);
-            // kB -> GiB
-            root.memUsed = (total[1] - avail[1]) / 1048576;
+            const numbers = text().match(/\d+/g);
+            // (MemTotal - MemAvail) convert kB to GiB
+            root.memUsed = (numbers[0] - numbers[2]) / 1048576;
         }
     }
 
-    property int powerCapacity
     FileView {
         id: powerFile
         path: `/sys/class/power_supply/${root.battery}/capacity`
-        onLoaded: {
-            root.powerCapacity = this.text();
-        }
+        onLoaded: root.powerCapacity = text()
     }
 
-    property real downloadMBps: 0
-    property real lastBytes: 0
     FileView {
         id: netwFile
+        property real prevBytes
         path: `/sys/class/net/${root.networkInterface}/statistics/rx_bytes`
         onLoaded: {
-            const bytes = this.text();
-            // (current - previous) converted to MiB/s
-            root.downloadMBps = (bytes - root.lastBytes) / 1048576 / root.updateSec;
-
-            root.lastBytes = bytes;
+            const bytes = text();
+            if (prevBytes > 0)
+                // (current - previous) converted to MiB/s
+                root.downloadMBps = (bytes - prevBytes) / 1048576 / root.updateSec;
+            prevBytes = bytes;
         }
     }
 

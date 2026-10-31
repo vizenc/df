@@ -90,7 +90,7 @@ Variants {
                 Group {
                     id: hwGroup
                     Module {
-                        format: `<font color="${Theme.blue}">󰍛</font> ${HWMonitor.cpuUsage}%`
+                        format: `<font color="${Theme.blue}">󰍛</font> ${HWMonitor.cpuUsage.toFixed(0)}%`
                         onClickCmd: "foot -T 'Task Manager' btop"
                     }
                     Module {
@@ -118,7 +118,7 @@ Variants {
                         onClickCmd: "foot -T 'Bluetooth Manager' bluetui"
                     }
                     Module {
-                        format: `<font color="${Theme.red}">${Audio.isMuted ? "󰖁" : "󰕾"}</font> ${Audio.speakerVolume}%`
+                        format: `<font color="${Theme.red}">${Audio.isMuted ? "󰖁" : "󰕾"}</font> ${Audio.speakerVolume.toFixed(0)}%`
                         onClickCmd: "foot -T 'Audio Manager' wiremix"
                     }
                 }
